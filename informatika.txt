@@ -1,27 +1,29 @@
-; Writes 2007 to the output
+JMP konig 
+intro: 
+DB "3" 
+DB "5" 
+DB "8" 
+DB "4" 
+DB "2" 
+db 0 
+konig: 
+MOV D, 232 
+MOV C, intro 
+MOV A, [C] 
 
-	JMP start
-hello: DB "2007" ; Variable
-       DB 20	; String terminator
+cmpmaster: 
+CMP A, [C+1] 
+JA print1 
+JB print2 
 
-start:
-	MOV C, hello    ; Point to var 
-	MOV D, 232	; Point to output
-	CALL print
-        HLT             ; Stop execution
 
-print:			; print(C:*from, D:*to)
-	PUSH A
-	PUSH B
-	MOV B, 0
-.loop:
-	MOV A, [C]	; Get char from var
-	MOV [D], A	; Write to output
-	INC C
-	INC D  
-	CMP B, [C]	; Check if end
-	JNZ .loop	; jump if not
+print1: 
+hlt 
 
-	POP B
-	POP A
-	RET
+print2: 
+MOV A, [C+1] 
+MOV [D], A 
+
+conclousion: 
+inc c 
+JMP cmpmaster
